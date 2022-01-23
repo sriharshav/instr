@@ -75,15 +75,13 @@ def disp_to_depth(disp, f, b):
     return depth
 
 
-def load_data(root=''):
-    sensors = ['rc_visard', 'zed']
-    data = {
-        'rc_visard': {},
-        'zed': {}
-    }
+def load_data(root='', sensors=['rc_visard', 'zed']):
+    data = {}
 
     for sensor in sensors:
         folders = os.listdir(os.path.join(root, sensor))
+        if len(folders) > 0:
+            data[sensor] = {}
         for folder in folders:
             data[sensor][folder] = load_folder(root=root, sensor=sensor, folder=folder)
     return data

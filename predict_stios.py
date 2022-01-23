@@ -30,18 +30,21 @@ def main():
     assert os.path.isfile(args.state_dict)
 
     cfg, net = stuff_from_state_dict_path(args.state_dict)
+    sensors = []
     if args.zed:
         print('Modifying subpixel correlation layer to fit ZED intrinsics')
         time.sleep(1)
         net.adapt_to_new_intrinsics(f_new=1390.0277099609375 / (2208/640), b_new=0.12)
+        sensors.append('zed')
     else:
         print('Modifying subpixel correlation layer to fit rc_visard intrinsics')
         time.sleep(1)
         net.adapt_to_new_intrinsics(f_new=1082.28 / (1280/640), b_new=0.0650206)
+        sensors.append('rc_visard')
 
     net = net.cuda().eval()
 
-    paths = load_data(root=args.root)
+    paths = load_data(root=args.root, sensors=sensors)
 
     results = {}
 
@@ -90,12 +93,12 @@ def main():
         for f, folder in enumerate(results.keys()):
             print(f"{sensor}: {folder}: {np.mean(results[folder]['ious'])*100:.4f}")
             mean.extend(results[folder]['ious'])
-        print(f"---\nmean: {np.mean(mean)*100:.4f}\n")
+        print(f"---\nmean(IOU): {np.mean(mean)*100:.4f}\n")
         mean = []
         for f, folder in enumerate(results.keys()):
             print(f"{sensor}: {folder}: {np.mean(results[folder]['f1s'])*100:.4f}")
             mean.extend(results[folder]['f1s'])
-        print(f"---\nmean: {np.mean(mean)*100:.4f}\n")
+        print(f"---\nmean(F1): {np.mean(mean)*100:.4f}\n")
 
 
 if __name__ == '__main__':
