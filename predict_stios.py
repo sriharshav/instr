@@ -86,16 +86,16 @@ def main():
                 'det_75': det_75_ratio
             }
 
-    mean = []
-    for f, folder in enumerate(results.keys()):
-        print(f"{sensor}: {folder}: {np.mean(results[folder]['ious'])*100:.4f}")
-        mean.extend(results[folder]['ious'])
-    print(f"---\nmean: {np.mean(mean)*100:.4f}\n")
-    mean = []
-    for f, folder in enumerate(results.keys()):
-        print(f"{sensor}: {folder}: {np.mean(results[folder]['f1s'])*100:.4f}")
-        mean.extend(results[folder]['f1s'])
-    print(f"---\nmean: {np.mean(mean)*100:.4f}\n")
+        mean = []
+        for f, folder in enumerate(results.keys()):
+            print(f"{sensor}: {folder}: {np.mean(results[folder]['ious'])*100:.4f}")
+            mean.extend(results[folder]['ious'])
+        print(f"---\nmean: {np.mean(mean)*100:.4f}\n")
+        mean = []
+        for f, folder in enumerate(results.keys()):
+            print(f"{sensor}: {folder}: {np.mean(results[folder]['f1s'])*100:.4f}")
+            mean.extend(results[folder]['f1s'])
+        print(f"---\nmean: {np.mean(mean)*100:.4f}\n")
 
 
 if __name__ == '__main__':
