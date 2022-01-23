@@ -62,7 +62,7 @@ Nvidia GPU with >= 3GB memory
 ## Requirements: Software
 
 It is reommended that you use a [conda environment](https://conda.io/projects/conda/en/latest/user-guide/install/index.html) for installation.
-Run `conda env create -f environment.yaml` to install a conda environment named *instr*.
+Run `conda env create -f environment.yml` to install a conda environment named *instr*.
 Then, run `conda activate instr` to activate it.
 
 ## Getting Started
